@@ -1,0 +1,15 @@
+main: com.pwn9.PwnPvPBalance.PwnPvPBalance
+name: PwnPvPBalance
+version: 0.1
+author: tremor77
+description: Balance PvP for players who are always getting beaten
+website: http://pwn9.com
+permissions:
+  pvpbal.use: 
+    description: Player will be allowed to receive balance buffs
+  pvpbal.defense: 
+    description: Player will receive defensive buffs in balance
+  pvpbal.offense: 
+    description: Player will receive offensive buffs in balance    
+  pvpbal.bypass: 
+    description: This players kills will not stack on victim for buffs  

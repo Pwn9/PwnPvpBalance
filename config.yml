@@ -1,0 +1,7 @@
+# Which worlds should this plugin be enabled in? Worlds not in this list will be ignored
+enabled_worlds:
+  - example_world
+  - example_world_nether
+
+# Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
+debug_log: false  
