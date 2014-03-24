@@ -208,7 +208,7 @@ public class PlayerListener implements Listener
 				        	
 				        	if (PwnPvpBalance.logEnabled)
 				        	{
-				        		PwnPvpBalance.logToFile(killer.getName() + " counts against " + killed.getName() + " scaled down to " + counts);
+				        		PwnPvpBalance.logToFile(killed.getName() + " counts against " + killer.getName() + " scaled down to " + counts);
 				        	}
 				        	
 			        	}
@@ -220,7 +220,7 @@ public class PlayerListener implements Listener
 				        	
 				        	if (PwnPvpBalance.logEnabled)
 				        	{
-				        		PwnPvpBalance.logToFile(killed.getName() + " removed from " + killer.getName() + " payback list");
+				        		PwnPvpBalance.logToFile(killer.getName() + " and " + killed.getName() + " have evened up the score");
 				        	}	
 				        	
 			        	}
