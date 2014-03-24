@@ -10,6 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener 
 {
@@ -115,20 +116,29 @@ public class PlayerListener implements Listener
 	        {
 	        	PwnPvpBalance.pvpBalances.put(killed.getName(), new HashMap<String, Integer>());
 	        	PwnPvpBalance.pvpBalances.get(killed.getName()).put(killer.getName(), 1);
-	        	PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " 1 time");
+	        	if (PwnPvpBalance.logEnabled)
+	        	{
+	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " 1 time");
+	        	}
 	        }	
 	        // Has current killed player been killed by this killer yet? If not add killer + 1 kill
 	        else if(PwnPvpBalance.pvpBalances.get(killed.getName()).get(killer.getName()) == null)
 	        {
 	        	PwnPvpBalance.pvpBalances.get(killed.getName()).put(killer.getName(), 1);
-	        	PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " 1 time");
+	        	if (PwnPvpBalance.logEnabled)
+	        	{
+	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " 1 time");
+	        	}
 	        }
 	        // Current killed player has been killed by this killer, add another kill
 	        else 
         	{
 	        	counts = PwnPvpBalance.pvpBalances.get(killed.getName()).get(killer.getName());
 	        	PwnPvpBalance.pvpBalances.get(killed.getName()).put(killer.getName(), counts + 1);
-	        	PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " " + counts +" times");
+	        	if (PwnPvpBalance.logEnabled)
+	        	{
+	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " " + counts +" times");
+	        	}
         	}
 	        
 	        
@@ -140,11 +150,38 @@ public class PlayerListener implements Listener
 		        if(PwnPvpBalance.pvpBalances.get(killer.getName()).get(killed.getName()) != null)
 		        {
 		        	PwnPvpBalance.pvpBalances.get(killer.getName()).remove(killed.getName());
-		        	PwnPvpBalance.logToFile(killed.getName() + " removed from " + killer.getName() + " payback list");
+		        	if (PwnPvpBalance.logEnabled)
+		        	{
+		        		PwnPvpBalance.logToFile(killed.getName() + " removed from " + killer.getName() + " payback list");
+		        	}
 		        }
 	        }  
 	        
 	    }
-	}	
+	}
+	
+	// Remove player map if they logout - configurable
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayerQuit(PlayerQuitEvent e)
+	{		
+		// Get the player
+		Player p = e.getPlayer();
+		// If configured to end on quit
+    	if (PwnPvpBalance.endOnQuit)
+    	{		
+	        // Check if player is in the list
+	        if(PwnPvpBalance.pvpBalances.get(p.getName()) != null)
+	        {
+	        	// Remove player logging out from map
+	        	PwnPvpBalance.pvpBalances.remove(p.getName());
+	        	// Log it?
+	        	if (PwnPvpBalance.logEnabled)
+	        	{
+	        		PwnPvpBalance.logToFile(p.getName() + " logged out and removed from balance list.");
+	        	}
+	        }	
+        } 
+	}
+	
 	
 }

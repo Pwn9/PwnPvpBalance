@@ -28,12 +28,17 @@ public class PwnPvpBalance extends JavaPlugin
 	// Get enabled worlds
 	public static List<String> enabledWorlds;
 	
-	// Get logging enabled
-	public static Boolean logEnabled;
-	
 	// Killstreak integer
 	public static Integer killstreak;
 	
+	// Get logging enabled
+	public static Boolean endOnQuit;
+
+	// Get logging enabled
+	public static Boolean logEnabled;	
+	
+	/*** Other values ***/
+
 	// Setup the player map - or array list?
 	// map<killedname, map<killername, killedtimes>>
 	public static Map<String, Map<String, Integer>> pvpBalances = new HashMap<String, Map<String,Integer>>();

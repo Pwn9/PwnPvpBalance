@@ -6,5 +6,11 @@ enabled_worlds:
 # +/- Kill count to activate player vs. player direct balance. IE: player A, kills player B, X times in a row.
 killstreak: 5
 
+# Player balance/handicap against other players will end if they logout. If false, the balance will remain until
+# the plugin is reloaded or the server restarted.
+end_on_quit: true
+
+# To-do perhaps? Use sql or file storage for longer persistence.
+
 # Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
 debug_log: false  

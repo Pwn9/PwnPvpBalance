@@ -12,6 +12,9 @@ public class Config extends PwnPvpBalance
 
 		// Get killstreak
 		PwnPvpBalance.killstreak = instance.getConfig().getInt("killstreak");		
+
+		// Get logging enabled
+		PwnPvpBalance.endOnQuit = instance.getConfig().getBoolean("end_on_quit");
 		
 		// Get logging enabled
 		PwnPvpBalance.logEnabled = instance.getConfig().getBoolean("debug_log");
