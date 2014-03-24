@@ -28,10 +28,16 @@ public class PwnPvpBalance extends JavaPlugin
 	// Get enabled worlds
 	public static List<String> enabledWorlds;
 	
+	// Get shield option
+	public static Boolean shield;
+	
 	// Killstreak integer
 	public static Integer killstreak;
 	
-	// Get logging enabled
+	// Get scale down
+	public static Boolean scaleDown;
+	
+	// Get end on quit
 	public static Boolean endOnQuit;
 
 	// Get logging enabled
