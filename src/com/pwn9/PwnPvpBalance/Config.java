@@ -9,6 +9,9 @@ public class Config extends PwnPvpBalance
 
 		// Get enabled worlds
 		PwnPvpBalance.enabledWorlds = instance.getConfig().getStringList("enabled_worlds");		
+
+		// Get killstreak
+		PwnPvpBalance.killstreak = instance.getConfig().getInt("killstreak");		
 		
 		// Get logging enabled
 		PwnPvpBalance.logEnabled = instance.getConfig().getBoolean("debug_log");

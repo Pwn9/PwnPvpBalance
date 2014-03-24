@@ -3,5 +3,8 @@ enabled_worlds:
   - example_world
   - example_world_nether
 
+# +/- Kill count to activate player vs. player direct balance. IE: player A, kills player B, X times in a row.
+killstreak: 5
+
 # Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
 debug_log: false  

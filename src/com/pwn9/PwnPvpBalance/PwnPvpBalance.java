@@ -31,6 +31,13 @@ public class PwnPvpBalance extends JavaPlugin
 	// Get logging enabled
 	public static Boolean logEnabled;
 	
+	// Killstreak integer
+	public static Integer killstreak;
+	
+	// Setup the player map - or array list?
+	// map<killedname, map<killername, killedtimes>>
+	public static Map<String, Map<String, Integer>> pvpBalances = new HashMap<String, Map<String,Integer>>();
+		
 	// Things to do when the plugin starts
 	public void onEnable() 
 	{
@@ -67,9 +74,6 @@ public class PwnPvpBalance extends JavaPlugin
 		
 	}
 	
-
-	
-	
 	/*** Utility Section - Stuff that does stuff ***/
 	
 	// Boolean to return if the plugin is enabled in a specific world
@@ -78,7 +82,6 @@ public class PwnPvpBalance extends JavaPlugin
 		return enabledWorlds.contains(world);
 	}	
 	
-
 	// Generic function to return the calculated time
 	public static long calcTimer(Long time) 
 	{
@@ -95,7 +98,7 @@ public class PwnPvpBalance extends JavaPlugin
 		    	dataFolder.mkdir();
 		    }
 		     
-		    File saveTo = new File(dataFolder, "ResPwn.log");
+		    File saveTo = new File(dataFolder, "PwnPvpBalance.log");
 		    if (!saveTo.exists())  
 		    {
 		    	saveTo.createNewFile();
@@ -122,6 +125,6 @@ public class PwnPvpBalance extends JavaPlugin
 		  formatter = new SimpleDateFormat("[yyyy/MM/dd HH:mm:ss]");
 		  s = formatter.format(date);
 		  return s;
-    }	
+    }
 	
 }
