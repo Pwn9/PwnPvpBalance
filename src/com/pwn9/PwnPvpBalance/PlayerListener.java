@@ -2,6 +2,7 @@ package com.pwn9.PwnPvpBalance;
 
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -84,33 +85,81 @@ public class PlayerListener implements Listener
 					
 					// Is this a straight up shield configuration or a damage reduction configuration?
 					
-					// Shield active - full proection enabled
+					// Shield active - full protection enabled
 					if (PwnPvpBalance.shield) 	
 					{
 						
-						// This message should be configurable, also it could be a bit spammy, maybe we should only send it once for a period of time
-						attacker.sendMessage(victim.getName() + " has n00b shield against you and cannot be harmed.");
+						// attacker message
+						if(PwnPvpBalance.lastMessage.containsKey(attacker.getName()))
+			            {
+			                Long lastTime = PwnPvpBalance.lastMessage.get(attacker.getName());
+			                Long currTime = System.currentTimeMillis();
+			                
+			                if(currTime > lastTime) 
+			                {
+								attacker.sendMessage(ChatColor.RED + victim.getName() + " has n00b shield against you and cannot be harmed.");
+								PwnPvpBalance.lastMessage.put(attacker.getName(), PwnPvpBalance.calcTimer((long) 10000));
+			                }
+			            }
+						
+						else 
+						{
+							attacker.sendMessage(ChatColor.RED + victim.getName() + " has n00b shield against you and cannot be harmed.");
+							PwnPvpBalance.lastMessage.put(attacker.getName(), PwnPvpBalance.calcTimer((long) 10000));	
+						}
 
-						// This message should be configurable, also it could be a bit spammy, maybe we should only send it once for a period of time
-						victim.sendMessage(attacker.getName() + " triggered your n00b shield, time for payback!");
+						// victim message
+						if(PwnPvpBalance.lastMessage.containsKey(victim.getName()))
+			            {
+							
+			                Long lastTime = PwnPvpBalance.lastMessage.get(victim.getName());
+			                Long currTime = System.currentTimeMillis();
+			                
+			                if(currTime > lastTime) 
+			                {
+								victim.sendMessage(ChatColor.RED + attacker.getName() + " triggered your n00b shield, time for payback!");
+								PwnPvpBalance.lastMessage.put(victim.getName(), PwnPvpBalance.calcTimer((long) 10000));
+			                }
+			                
+			            }
+						
+						else
+						{
+							victim.sendMessage(ChatColor.RED + attacker.getName() + " triggered your n00b shield, time for payback!");
+							PwnPvpBalance.lastMessage.put(victim.getName(), PwnPvpBalance.calcTimer((long) 10000));	
+						}
 						
 						// Shield event = this event should get cancelled and no damage done
 						e.setCancelled(true);
-						
-						// Logging?  Might be spammy let's think about it and save for later
-						
+
 					}
 					
 					// No shield, do damage reductions instead
 					else 
 					{
 						
-						Integer diffs = (counts + 1) - PwnPvpBalance.killstreak;
+						Double diffs = (double) ((counts + 1) - PwnPvpBalance.killstreak);
+						Double perDiffs = (double) 1;
 						
-						// Alter damage amount by dividing current damage by the diffs.
-						e.setDamage(e.getDamage() / diffs);
+						if (diffs < 10) 
+						{
+							perDiffs = 1 - (diffs / 10);
+						}
+						else
+						{
+							perDiffs = 0.1;
+						}
 						
-						// Logging?  Might be spammy let's think about it and save for later
+						Double damageModifier = e.getDamage() * perDiffs;
+						
+						// Logging?  Might be spammy - consider log levels in the future
+			        	if (PwnPvpBalance.logEnabled)
+			        	{
+			        		PwnPvpBalance.logToFile(attacker.getName() + " V. " + victim.getName() + " : Init Damage: " + e.getDamage() + " Mod Damage: " + damageModifier);
+			        	}						
+						
+						// Alter damage amount 
+						e.setDamage(damageModifier);
 						
 					}				
 					

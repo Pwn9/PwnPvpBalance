@@ -45,10 +45,12 @@ public class PwnPvpBalance extends JavaPlugin
 	
 	/*** Other values ***/
 
-	// Setup the player map - or array list?
 	// map<killedname, map<killername, killedtimes>>
 	public static Map<String, Map<String, Integer>> pvpBalances = new HashMap<String, Map<String,Integer>>();
 		
+	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
+	public static Map<String, Long> lastMessage = new HashMap<String, Long>();
+	
 	// Things to do when the plugin starts
 	public void onEnable() 
 	{
