@@ -11,6 +11,10 @@ shield: false
 # +/- Kill count to activate player vs. player direct balance. IE: player A, kills player B, X times in a row.
 killstreak: 3
 
+# Max debuff: The maximum debuff allowed, must be a number from (1 - 9) where 1 = %10 damage reduction and 
+# 9 = %90 damage reduction. Whole numbers only, 9 is default.
+max_debuff: 9
+
 # Set scaling option for balance handling. 
 # True scales balance up and down on each kill (handicap method). 
 # False resets killstreaks back to 0 when a player gets a payback kill. 

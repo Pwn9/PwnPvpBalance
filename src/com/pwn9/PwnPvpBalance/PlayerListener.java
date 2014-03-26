@@ -137,17 +137,22 @@ public class PlayerListener implements Listener
 					// No shield, do damage reductions instead
 					else 
 					{
+						// Get damage debuff amounts - potentially move to it's own super cool function
+						
+						// This setup basically knocks 10% off each hit for every kill over the killstreak total to a max of 90%, which seems a bit OP to me.
+						
+						// So this should probably be far more configurable.
 						
 						Double diffs = (double) ((counts + 1) - PwnPvpBalance.killstreak);
 						Double perDiffs = (double) 1;
 						
-						if (diffs < 10) 
+						if (PwnPvpBalance.maxDiffs >= diffs) 
 						{
 							perDiffs = 1 - (diffs / 10);
 						}
 						else
 						{
-							perDiffs = 0.1;
+							perDiffs = 1 - (PwnPvpBalance.maxDiffs / 10);							
 						}
 						
 						Double damageModifier = e.getDamage() * perDiffs;
@@ -188,7 +193,10 @@ public class PlayerListener implements Listener
 	    	// Killed player
 	        Player killed = (Player)e.getEntity();
 	        
-	        // Killer player
+	        // Is the killer a player at all?
+	        if (e.getEntity().getKiller() == null) return;
+	        
+	        // Get the killer
 	        Player killer = (Player)e.getEntity().getKiller(); 
 	           
 	        // Here will go a routine to match up the killed with the killer and add to a balance mapping        
@@ -238,21 +246,26 @@ public class PlayerListener implements Listener
         	}
 	          
 	        // Now the reverse, erase the killed player from the killers list or reduce by one depending on settings	
+	        
+	        // Does the killer have an entry?
 	        if(PwnPvpBalance.pvpBalances.get(killer.getName()) != null)
 	        {
-	        	
+	        	// Does the killer have an entry for the playery they just killed
 		        if(PwnPvpBalance.pvpBalances.get(killer.getName()).get(killed.getName()) != null)
 		        {
 		        	
+		        	// If scale down we have to just reduce the streak by 1
 		        	if (PwnPvpBalance.scaleDown) 
 		        	{
 		        		
 			        	Integer counts = PwnPvpBalance.pvpBalances.get(killer.getName()).get(killed.getName());
 			        	
+			        	// The count is still uneven
 			        	if (counts > 0) 
 			        	{
 			        		counts = counts - 1;
 
+			        		// Update the killstreak
 				        	PwnPvpBalance.pvpBalances.get(killer.getName()).put(killed.getName(), counts);
 				        	
 				        	if (PwnPvpBalance.logEnabled)
@@ -261,10 +274,11 @@ public class PlayerListener implements Listener
 				        	}
 				        	
 			        	}
-			        	
+			        	// Score has been settled
 			        	else 
 			        	{
 			        		
+			        		// Remove player from the list
 				        	PwnPvpBalance.pvpBalances.get(killer.getName()).remove(killed.getName());
 				        	
 				        	if (PwnPvpBalance.logEnabled)

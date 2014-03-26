@@ -33,6 +33,9 @@ public class PwnPvpBalance extends JavaPlugin
 	
 	// Killstreak integer
 	public static Integer killstreak;
+
+	// Max diffs / debuff 
+	public static Double maxDiffs;
 	
 	// Get scale down
 	public static Boolean scaleDown;
