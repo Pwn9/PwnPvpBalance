@@ -1,6 +1,7 @@
 package com.pwn9.PwnPvpBalance;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -71,14 +72,14 @@ public class PlayerListener implements Listener
 		}
 		
 		// We have our attacker and victim now so, so lets get the stats and do the math
-		if(PwnPvpBalance.pvpBalances.get(victim.getName()) != null)
+		if(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()) != null)
 		{
 			
-			if(PwnPvpBalance.pvpBalances.get(victim.getName()).get(attacker.getName()) != null)
+			if(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()).get(attacker.getUniqueId()) != null)
 			{
 				
 				// Is this PvP battle at the killstreak yet?
-	        	Integer counts = PwnPvpBalance.pvpBalances.get(victim.getName()).get(attacker.getName());
+	        	Integer counts = PwnPvpBalance.pvpBalances.get(victim.getUniqueId()).get(attacker.getUniqueId());
 
 				if(counts >= PwnPvpBalance.killstreak)
 				{
@@ -90,35 +91,35 @@ public class PlayerListener implements Listener
 					{
 						
 						// attacker message
-						if(PwnPvpBalance.lastMessage.containsKey(attacker.getName()))
+						if(PwnPvpBalance.lastMessage.containsKey(attacker.getUniqueId()))
 			            {
-			                Long lastTime = PwnPvpBalance.lastMessage.get(attacker.getName());
+			                Long lastTime = PwnPvpBalance.lastMessage.get(attacker.getUniqueId());
 			                Long currTime = System.currentTimeMillis();
 			                
 			                if(currTime > lastTime) 
 			                {
 								attacker.sendMessage(ChatColor.RED + victim.getName() + " has n00b shield against you and cannot be harmed.");
-								PwnPvpBalance.lastMessage.put(attacker.getName(), PwnPvpBalance.calcTimer((long) 10000));
+								PwnPvpBalance.lastMessage.put(attacker.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));
 			                }
 			            }
 						
 						else 
 						{
 							attacker.sendMessage(ChatColor.RED + victim.getName() + " has n00b shield against you and cannot be harmed.");
-							PwnPvpBalance.lastMessage.put(attacker.getName(), PwnPvpBalance.calcTimer((long) 10000));	
+							PwnPvpBalance.lastMessage.put(attacker.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));	
 						}
 
 						// victim message
-						if(PwnPvpBalance.lastMessage.containsKey(victim.getName()))
+						if(PwnPvpBalance.lastMessage.containsKey(victim.getUniqueId()))
 			            {
 							
-			                Long lastTime = PwnPvpBalance.lastMessage.get(victim.getName());
+			                Long lastTime = PwnPvpBalance.lastMessage.get(victim.getUniqueId());
 			                Long currTime = System.currentTimeMillis();
 			                
 			                if(currTime > lastTime) 
 			                {
 								victim.sendMessage(ChatColor.RED + attacker.getName() + " triggered your n00b shield, time for payback!");
-								PwnPvpBalance.lastMessage.put(victim.getName(), PwnPvpBalance.calcTimer((long) 10000));
+								PwnPvpBalance.lastMessage.put(victim.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));
 			                }
 			                
 			            }
@@ -126,7 +127,7 @@ public class PlayerListener implements Listener
 						else
 						{
 							victim.sendMessage(ChatColor.RED + attacker.getName() + " triggered your n00b shield, time for payback!");
-							PwnPvpBalance.lastMessage.put(victim.getName(), PwnPvpBalance.calcTimer((long) 10000));	
+							PwnPvpBalance.lastMessage.put(victim.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));	
 						}
 						
 						// Shield event = this event should get cancelled and no damage done
@@ -203,12 +204,12 @@ public class PlayerListener implements Listener
 	        // Get any current killed -> killer -> counts, if none create new
 	       
 	        // Does current killed have a map up yet? If not start one and add the killer + 1 kill
-	        if(PwnPvpBalance.pvpBalances.get(killed.getName()) == null) 
+	        if(PwnPvpBalance.pvpBalances.get(killed.getUniqueId()) == null) 
 	        {
 	        	
-	        	PwnPvpBalance.pvpBalances.put(killed.getName(), new HashMap<String, Integer>());
+	        	PwnPvpBalance.pvpBalances.put(killed.getUniqueId(), new HashMap<UUID, Integer>());
 	        	
-	        	PwnPvpBalance.pvpBalances.get(killed.getName()).put(killer.getName(), 1);
+	        	PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).put(killer.getUniqueId(), 1);
 	        	
 	        	if (PwnPvpBalance.logEnabled)
 	        	{
@@ -217,10 +218,10 @@ public class PlayerListener implements Listener
 	        }	
 	        
 	        // Has current killed player been killed by this killer yet? If not add killer + 1 kill
-	        else if(PwnPvpBalance.pvpBalances.get(killed.getName()).get(killer.getName()) == null)
+	        else if(PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).get(killer.getUniqueId()) == null)
 	        {
 	        	
-	        	PwnPvpBalance.pvpBalances.get(killed.getName()).put(killer.getName(), 1);
+	        	PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).put(killer.getUniqueId(), 1);
 	        	
 	        	if (PwnPvpBalance.logEnabled)
 	        	{
@@ -233,10 +234,10 @@ public class PlayerListener implements Listener
 	        else 
         	{
 	        	
-	        	Integer counts = PwnPvpBalance.pvpBalances.get(killed.getName()).get(killer.getName());
+	        	Integer counts = PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).get(killer.getUniqueId());
 	        	counts = counts + 1;
 	        	
-	        	PwnPvpBalance.pvpBalances.get(killed.getName()).put(killer.getName(), counts);
+	        	PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).put(killer.getUniqueId(), counts);
 	        	
 	        	if (PwnPvpBalance.logEnabled)
 	        	{
@@ -248,17 +249,17 @@ public class PlayerListener implements Listener
 	        // Now the reverse, erase the killed player from the killers list or reduce by one depending on settings	
 	        
 	        // Does the killer have an entry?
-	        if(PwnPvpBalance.pvpBalances.get(killer.getName()) != null)
+	        if(PwnPvpBalance.pvpBalances.get(killer.getUniqueId()) != null)
 	        {
 	        	// Does the killer have an entry for the playery they just killed
-		        if(PwnPvpBalance.pvpBalances.get(killer.getName()).get(killed.getName()) != null)
+		        if(PwnPvpBalance.pvpBalances.get(killer.getUniqueId()).get(killed.getUniqueId()) != null)
 		        {
 		        	
 		        	// If scale down we have to just reduce the streak by 1
 		        	if (PwnPvpBalance.scaleDown) 
 		        	{
 		        		
-			        	Integer counts = PwnPvpBalance.pvpBalances.get(killer.getName()).get(killed.getName());
+			        	Integer counts = PwnPvpBalance.pvpBalances.get(killer.getUniqueId()).get(killed.getUniqueId());
 			        	
 			        	// The count is still uneven
 			        	if (counts > 0) 
@@ -266,7 +267,7 @@ public class PlayerListener implements Listener
 			        		counts = counts - 1;
 
 			        		// Update the killstreak
-				        	PwnPvpBalance.pvpBalances.get(killer.getName()).put(killed.getName(), counts);
+				        	PwnPvpBalance.pvpBalances.get(killer.getUniqueId()).put(killed.getUniqueId(), counts);
 				        	
 				        	if (PwnPvpBalance.logEnabled)
 				        	{
@@ -279,7 +280,7 @@ public class PlayerListener implements Listener
 			        	{
 			        		
 			        		// Remove player from the list
-				        	PwnPvpBalance.pvpBalances.get(killer.getName()).remove(killed.getName());
+				        	PwnPvpBalance.pvpBalances.get(killer.getUniqueId()).remove(killed.getUniqueId());
 				        	
 				        	if (PwnPvpBalance.logEnabled)
 				        	{
@@ -294,7 +295,7 @@ public class PlayerListener implements Listener
 		        	else 
 		        	{
 		        		
-			        	PwnPvpBalance.pvpBalances.get(killer.getName()).remove(killed.getName());
+			        	PwnPvpBalance.pvpBalances.get(killer.getUniqueId()).remove(killed.getUniqueId());
 			        	
 			        	if (PwnPvpBalance.logEnabled)
 			        	{
@@ -324,11 +325,11 @@ public class PlayerListener implements Listener
     	{		
     		
 	        // Check if player is in the list
-	        if(PwnPvpBalance.pvpBalances.get(p.getName()) != null)
+	        if(PwnPvpBalance.pvpBalances.get(p.getUniqueId()) != null)
 	        {
 	        	
 	        	// Remove player logging out from map
-	        	PwnPvpBalance.pvpBalances.remove(p.getName());
+	        	PwnPvpBalance.pvpBalances.remove(p.getUniqueId());
 	        	
 	        	// Log it?
 	        	if (PwnPvpBalance.logEnabled)

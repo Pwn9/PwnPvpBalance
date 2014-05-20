@@ -26,5 +26,8 @@ end_on_quit: true
 
 # To-do perhaps? Use sql or file storage for longer persistence.
 
+# Enable armor balancing? Grants speed ups to no armor/leather armor and slow downs to heavy armor
+armor_speed: false
+
 # Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
 debug_log: false  

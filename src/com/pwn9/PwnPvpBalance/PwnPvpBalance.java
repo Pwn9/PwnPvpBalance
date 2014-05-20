@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,16 +44,19 @@ public class PwnPvpBalance extends JavaPlugin
 	// Get end on quit
 	public static Boolean endOnQuit;
 
+	// Get armor speed
+	public static Boolean armorSpeed;	
+	
 	// Get logging enabled
 	public static Boolean logEnabled;	
 	
 	/*** Other values ***/
 
 	// map<killedname, map<killername, killedtimes>>
-	public static Map<String, Map<String, Integer>> pvpBalances = new HashMap<String, Map<String,Integer>>();
+	public static Map<UUID, Map<UUID, Integer>> pvpBalances = new HashMap<UUID, Map<UUID,Integer>>();
 		
 	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
-	public static Map<String, Long> lastMessage = new HashMap<String, Long>();
+	public static Map<UUID, Long> lastMessage = new HashMap<UUID, Long>();
 	
 	// Things to do when the plugin starts
 	public void onEnable() 
@@ -76,18 +80,25 @@ public class PwnPvpBalance extends JavaPlugin
 	    
 		// Setup listeners
 		new PlayerListener(this);
+		new PlayerMoveListener(this);
 			
 		// Get data folder
 		PwnPvpBalance.dataFolder = getDataFolder();
 		
 		// Load Configurable Values
 		Config.LoadConfig();
+		
+		if (PwnPvpBalance.logEnabled) {
+			PwnPvpBalance.logToFile("PwnPvpBalance Enabled");
+		}
 
 	}
 	
 	public void onDisable() 
 	{
-		
+		if (PwnPvpBalance.logEnabled) {
+			PwnPvpBalance.logToFile("PwnPvpBalance Disabled");
+		}
 	}
 	
 	/*** Utility Section - Stuff that does stuff ***/

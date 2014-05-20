@@ -27,6 +27,9 @@ public class Config extends PwnPvpBalance
 		
 		// Get end on quit
 		PwnPvpBalance.endOnQuit = instance.getConfig().getBoolean("end_on_quit", true);
+	
+		// Get armorspeed
+		PwnPvpBalance.armorSpeed = instance.getConfig().getBoolean("armor_speed", false);
 		
 		// Get logging enabled
 		PwnPvpBalance.logEnabled = instance.getConfig().getBoolean("debug_log", false);
