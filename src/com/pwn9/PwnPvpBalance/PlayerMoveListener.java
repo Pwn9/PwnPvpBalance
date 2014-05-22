@@ -43,12 +43,8 @@ public class PlayerMoveListener implements Listener
 		Player player = event.getPlayer();
 		
 		// Lets get player's current armor
-		int armorWeight = 0;
-		
-		// Setup some stuffs
-		Float spdMod;
-		Float walksp = player.getWalkSpeed();
-		
+		double armorWeight = 0;
+			
 		ItemStack boots = player.getInventory().getBoots();
 		ItemStack chest = player.getInventory().getChestplate();
 		ItemStack pants = player.getInventory().getLeggings();
@@ -116,15 +112,19 @@ public class PlayerMoveListener implements Listener
 		
 		if (armorWeight == 0) {
 			
-			spdMod = (float) (0.28);
+			double spdMod = (0.26f);
+			double walksp = player.getWalkSpeed();
 			
-			if (spdMod.toString() != walksp.toString()) {
+			int spdModR = (int) Math.round(spdMod*1000);
+			int walkspR = (int) Math.round(walksp*1000);
+			
+			if (spdModR != walkspR) {
 				
 				if (PwnPvpBalance.logEnabled) {
-					PwnPvpBalance.logToFile(player.getName() + " speed was: " + walksp.toString() + " is now: " + spdMod.toString() + " Armor weight: " + armorWeight );
+					PwnPvpBalance.logToFile(player.getName() + " speed was: " + walksp + " is now: " + spdMod + " Armor weight: " + armorWeight );
 				}
 				
-				player.setWalkSpeed(spdMod);
+				player.setWalkSpeed((float) spdMod);
 				
 			}
 			
@@ -132,15 +132,19 @@ public class PlayerMoveListener implements Listener
 		
 		else {
 			
-			spdMod = (float) (0.28 - (armorWeight / 100));
+			double spdMod = (0.26 - ((armorWeight / 2) / 100));
+			double walksp = player.getWalkSpeed();
 			
-			if (spdMod.toString() != walksp.toString()) {
+			int spdModR = (int) Math.round(spdMod*1000);
+			int walkspR = (int) Math.round(walksp*1000);
+			
+			if (spdModR != walkspR) {
 				
 				if (PwnPvpBalance.logEnabled) {
-					PwnPvpBalance.logToFile(player.getName() + " walk speed was: " + walksp.toString() + " is now: " + spdMod.toString() + " Armor weight: " + armorWeight );
+					PwnPvpBalance.logToFile(player.getName() + " speed was: " + walksp + " is now: " + spdMod + " Armor weight: " + armorWeight );
 				}
 				
-				player.setWalkSpeed(spdMod);
+				player.setWalkSpeed((float) spdMod);
 			}
 			
 		}
