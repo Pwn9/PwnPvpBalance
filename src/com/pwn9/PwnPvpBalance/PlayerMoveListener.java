@@ -16,15 +16,6 @@ public class PlayerMoveListener implements Listener
 	{
 	    plugin.getServer().getPluginManager().registerEvents(this, plugin);    
 	}	
-
-
-	// Work in progress, armor balancing with speed effects... 
-	
-	// Should we modify the player on every move event, or should we set their walk speed on join, respawn and armor equip/unequip events?  
-	
-	// It would probably be more resource efficient to do the above ^.  Less code to do the onMove though..
-	
-	// Actually it would probably be more effective to just check all the time, NCP checks the move event all the time, so this shouldn't be too much of a problem
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerMoveEvent(PlayerMoveEvent event)
@@ -148,57 +139,7 @@ public class PlayerMoveListener implements Listener
 			}
 			
 		}
-		
-		// Default walkspeed is apparently 0.2f
-		//player.setWalkSpeed(0.3f);
-		
-		/*** All this was for potion effect modification, probably wont use this method, but keeping it here for reference right now ***/
-		
-		//player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 0));
-		
-		//Location playerLocation = event.getPlayer().getLocation();
-		//double y = playerLocation.getBlockY();
-		//double x = playerLocation.getBlockX();
-		//double z = playerLocation.getBlockZ();
-
-		//World currentWorld = event.getPlayer().getWorld();
-
-		//Location blockBelow = new Location(currentWorld, x, y - 2.0D, z);
-
-		/*if (player.isSprinting())
-			{
-				if (plugin.speedLand > 1)
-				{
-					player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 500, plugin.speedLand - 2));
-				}
-			}
-		*/
-		/*else if ((player.getAllowFlight()) && (blockBelow.getBlock().getType().equals(Material.AIR)))
-		{
-			if (plugin.speedFly > 1)
-			{
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 500, plugin.speedFly - 2));
-			}
-		}
-		else if (playerLocation.getBlock().getType().equals(Material.STATIONARY_WATER))
-		{
-			if (plugin.speedWater > 1D)
-			{
-				Vector dir = player.getLocation().getDirection().normalize().multiply(plugin.speedWater - 1.6D);
-				Vector vec = new Vector(dir.getX(), dir.getY(), dir.getZ());
-				player.setVelocity(vec);
-			}
-
-		} */
-		
-		/*else 
-		{
-			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 0, 0), true);
-		}
-		*/
-		
-		
-		
+			
 	}
 	
 }

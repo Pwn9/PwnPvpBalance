@@ -75,7 +75,8 @@ public class PlayerListener implements Listener
 		if(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()) != null)
 		{
 			
-			if(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()).get(attacker.getUniqueId()) != null)
+			//if(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()).get(attacker.getUniqueId()) != null)
+			if(Integer.valueOf(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()).get(attacker.getUniqueId())) != null)	
 			{
 				
 				// Is this PvP battle at the killstreak yet?
