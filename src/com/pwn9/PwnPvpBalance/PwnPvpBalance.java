@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.pwn9.PwnPvpBalance.MetricsLite;
@@ -52,11 +52,11 @@ public class PwnPvpBalance extends JavaPlugin
 	
 	/*** Other values ***/
 
-	// map<killedname, map<killername, killedtimes>>
-	public static Map<UUID, Map<UUID, Integer>> pvpBalances = new HashMap<UUID, Map<UUID,Integer>>();
-		
-	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
-	public static Map<UUID, Long> lastMessage = new HashMap<UUID, Long>();
+ 	// map<killed, map<killer, killedtimes>> 
+	public static Map<Player, Map<Player, Integer>> pvpBalances = new HashMap<Player, Map<Player,Integer>>();
+
+ 	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
+	public static Map<Player, Long> lastMessage = new HashMap<Player, Long>();
 	
 	// Things to do when the plugin starts
 	public void onEnable() 
