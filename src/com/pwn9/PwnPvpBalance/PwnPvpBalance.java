@@ -78,15 +78,19 @@ public class PwnPvpBalance extends JavaPlugin
 		    // Failed to submit the stats :-(
 		}
 	    
-		// Setup listeners
-		new PlayerListener(this);
-		new PlayerMoveListener(this);
-			
 		// Get data folder
 		PwnPvpBalance.dataFolder = getDataFolder();
 		
 		// Load Configurable Values
 		Config.LoadConfig();
+		
+		// Setup default player listeners
+		new PlayerListener(this);
+		
+		// For efficiency, only load move listener if armorspeed is enabled
+		if (PwnPvpBalance.armorSpeed) {
+			new PlayerMoveListener(this);
+		}
 		
 		if (PwnPvpBalance.logEnabled) {
 			PwnPvpBalance.logToFile("PwnPvpBalance Enabled");

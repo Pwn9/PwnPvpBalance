@@ -47,6 +47,11 @@ public class PlayerListener implements Listener
 			{
 				attacker = (Player)arrow.getShooter();
 			} 
+			else 
+			{
+				// attacker is NOT a player, abort.
+				return;
+			}
 			
 		} 
 		else if(e.getDamager() instanceof Player) 
@@ -55,7 +60,7 @@ public class PlayerListener implements Listener
 		} 
 		else 
 		{
-			// attacker is NOT a player - do we want to do anything with this knowledge?
+			// attacker is NOT a player, abort.
 			return;
 		}
 		
@@ -66,7 +71,7 @@ public class PlayerListener implements Listener
 		}
 		else 
 		{
-			// victim is NOT a player - do we want to do anything with this knowledge?
+			// victim is NOT a player, abort.
 			return;
 		}
 		
