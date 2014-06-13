@@ -58,6 +58,8 @@ public class PwnPvpBalance extends JavaPlugin
  	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
 	public static Map<UUID, Long> lastMessage = new HashMap<UUID, Long>();
 	
+	public static ConfigAccessor balances;
+	
 	// Things to do when the plugin starts
 	public void onEnable() 
 	{
@@ -81,9 +83,12 @@ public class PwnPvpBalance extends JavaPlugin
 		// Get data folder
 		PwnPvpBalance.dataFolder = getDataFolder();
 		
+		// Get ConfigAccessor
+		balances = new ConfigAccessor(this, "balances.yml");
+		
 		// Load Configurable Values
 		Config.LoadConfig();
-		
+			
 		// Setup default player listeners
 		new PlayerListener(this);
 		
@@ -100,6 +105,9 @@ public class PwnPvpBalance extends JavaPlugin
 	
 	public void onDisable() 
 	{
+		
+		balances.saveConfig();
+		
 		if (PwnPvpBalance.logEnabled) {
 			PwnPvpBalance.logToFile("PwnPvpBalance Disabled");
 		}

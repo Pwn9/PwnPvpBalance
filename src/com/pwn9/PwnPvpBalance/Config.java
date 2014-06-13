@@ -33,6 +33,14 @@ public class Config extends PwnPvpBalance
 		
 		// Get logging enabled
 		PwnPvpBalance.logEnabled = instance.getConfig().getBoolean("debug_log", false);
+		
+		// Get balances config
+		PwnPvpBalance.balances.saveDefaultConfig();
+		
+		// Testing save
+		//PwnPvpBalance.balances.getConfig().set("test", "test");
+		//PwnPvpBalance.balances.getConfig().set("testing.test", "testing");
+		
 			
 	}
 	
