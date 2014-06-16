@@ -77,11 +77,11 @@ public class PlayerListener implements Listener
 		}
 		
 		// We have our attacker and victim now so, so lets get the stats and do the math
-		if(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()) != null)
+		if(PwnPvpBalance.pvpBalances.containsKey(victim.getUniqueId()))
 		{
 			
 			//if(PwnPvpBalance.pvpBalances.get(victim).get(attacker) != null)
-			if(Integer.valueOf(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()).get(attacker.getUniqueId())) != null)	
+			if(PwnPvpBalance.pvpBalances.get(victim.getUniqueId()).containsKey((attacker.getUniqueId())))	
 			{
 				
 				// Is this PvP battle at the killstreak yet?
