@@ -101,43 +101,23 @@ public class PlayerMoveListener implements Listener
 		    }		    
 		}
 		
-		if (armorWeight == 0) {
-			
-			double spdMod = (0.26f);
-			double walksp = player.getWalkSpeed();
-			
-			int spdModR = (int) Math.round(spdMod*1000);
-			int walkspR = (int) Math.round(walksp*1000);
-			
-			if (spdModR != walkspR) {
-				
-				if (PwnPvpBalance.logEnabled) {
-					PwnPvpBalance.logToFile(player.getName() + " speed was: " + walksp + " is now: " + spdMod + " Armor weight: " + armorWeight );
-				}
-				
-				player.setWalkSpeed((float) spdMod);
-				
-			}
-			
+		double spdMod;
+		if (armorWeight == 0) {	
+			spdMod = (0.26f);			
+		}
+		else {
+			spdMod = (0.26 - ((armorWeight / 2) / 100));
 		}
 		
-		else {
-			
-			double spdMod = (0.26 - ((armorWeight / 2) / 100));
-			double walksp = player.getWalkSpeed();
-			
-			int spdModR = (int) Math.round(spdMod*1000);
-			int walkspR = (int) Math.round(walksp*1000);
-			
-			if (spdModR != walkspR) {
-				
-				if (PwnPvpBalance.logEnabled) {
-					PwnPvpBalance.logToFile(player.getName() + " speed was: " + walksp + " is now: " + spdMod + " Armor weight: " + armorWeight );
-				}
-				
-				player.setWalkSpeed((float) spdMod);
+		double walksp = player.getWalkSpeed();
+		int spdModR = (int) Math.round(spdMod*1000);
+		int walkspR = (int) Math.round(walksp*1000);
+		
+		if (spdModR != walkspR) {
+			if (PwnPvpBalance.logEnabled) {
+				PwnPvpBalance.logToFile(player.getName() + " speed was: " + walksp + " is now: " + spdMod + " Armor weight: " + armorWeight );
 			}
-			
+			player.setWalkSpeed((float) spdMod);
 		}
 			
 	}
