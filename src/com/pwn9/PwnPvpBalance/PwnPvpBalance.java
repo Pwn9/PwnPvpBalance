@@ -89,6 +89,9 @@ public class PwnPvpBalance extends JavaPlugin
 		// Load Configurable Values
 		Config.LoadConfig();
 			
+    	// Command Executor
+    	getCommand("ppb").setExecutor(new PwnPvpBalanceCommands(this));
+    			
 		// Setup default player listeners
 		new PlayerListener(this);
 		

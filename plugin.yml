@@ -1,9 +1,15 @@
 main: com.pwn9.PwnPvpBalance.PwnPvpBalance
 name: PwnPvPBalance
-version: 0.8
+version: 0.9
 author: tremor77
 description: Balance PvP for players who are always getting beaten
 website: http://pwn9.com
+commands:
+   ppb:
+      description: Execute a PwnPvpBalance command
+      usage: /ppb <reload|save>
+      permission: pvpbal.commands
+      permission-message: You dont have permission for this command
 permissions:
   pvpbal.use: 
     description: Player will be allowed to receive balance buffs
@@ -12,4 +18,7 @@ permissions:
   pvpbal.offense: 
     description: Player will receive offensive buffs in balance    
   pvpbal.bypass: 
-    description: This players kills will not stack on victim for buffs  
+    description: This players kills will not stack on victim for buffs
+  pvpbal.commands: 
+    description: Player will have access to PwnPvpBalance commands
+   
