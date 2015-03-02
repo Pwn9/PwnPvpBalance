@@ -33,6 +33,10 @@ public class PlayerMoveListener implements Listener
 		// Get the player
 		Player player = event.getPlayer();
 		
+		if (player.hasPermission("pvpbal.nospeed")) {
+			return;
+		}
+		
 		// Lets get player's current armor
 		double armorWeight = 0;
 			
