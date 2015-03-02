@@ -24,7 +24,7 @@ public class PwnPvpBalanceCommands implements CommandExecutor
 		}
 		else
 		{
-			if (cmd.getName().equalsIgnoreCase("pwnlay"))
+			if (cmd.getName().equalsIgnoreCase("ppb"))
 			{
 				ppb(sender, cmd, label, args);
 				return true;
