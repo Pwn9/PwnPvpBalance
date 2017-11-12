@@ -44,6 +44,11 @@ public class PwnPvpBalance extends JavaPlugin
 	// Get end on quit
 	public static Boolean endOnQuit;
 
+	// Get end timer
+	//public static Integer endTimer;
+	// End on timer will reset any shields or debuffs after X minutes, set to 0 to have no timer
+	//end_timer: 0 - will need to add to config when this is working
+	
 	// Get armor speed
 	public static Boolean armorSpeed;	
 	
