@@ -28,8 +28,8 @@ public class Config extends PwnPvpBalance
 		// Get end on quit
 		PwnPvpBalance.endOnQuit = instance.getConfig().getBoolean("end_on_quit", true);
 
-		// Get end timer
-		//PwnPvpBalance.endTimer = instance.getConfig().getInt("end_timer", 0);
+		// Get end timer - multiply by 1000 to turn into seconds
+		PwnPvpBalance.shieldEndTimer = instance.getConfig().getInt("shield_end_timer", 300) * 1000;
 		
 		// Get armorspeed
 		PwnPvpBalance.armorSpeed = instance.getConfig().getBoolean("armor_speed", false);

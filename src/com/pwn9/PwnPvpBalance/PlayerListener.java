@@ -3,7 +3,6 @@ package com.pwn9.PwnPvpBalance;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -96,48 +95,12 @@ public class PlayerListener implements Listener
 					if (PwnPvpBalance.shield) 	
 					{
 						
-						// attacker message
-						if(PwnPvpBalance.lastMessage.containsKey(attacker.getUniqueId()))
-			            {
-			                Long lastTime = PwnPvpBalance.lastMessage.get(attacker.getUniqueId());
-			                Long currTime = System.currentTimeMillis();
-			                
-			                if(currTime > lastTime) 
-			                {
-								attacker.sendMessage(ChatColor.RED + victim.getName() + " has n00b shield against you and cannot be harmed.");
-								PwnPvpBalance.lastMessage.put(attacker.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));
-			                }
-			            }
-						
-						else 
-						{
-							attacker.sendMessage(ChatColor.RED + victim.getName() + " has n00b shield against you and cannot be harmed.");
-							PwnPvpBalance.lastMessage.put(attacker.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));	
-						}
+						Messenger.shieldMessage(attacker, victim, " has n00b shield against you and cannot be harmed.");
 
-						// victim message
-						if(PwnPvpBalance.lastMessage.containsKey(victim.getUniqueId()))
-			            {
-							
-			                Long lastTime = PwnPvpBalance.lastMessage.get(victim.getUniqueId());
-			                Long currTime = System.currentTimeMillis();
-			                
-			                if(currTime > lastTime) 
-			                {
-								victim.sendMessage(ChatColor.RED + attacker.getName() + " triggered your n00b shield, time for payback!");
-								PwnPvpBalance.lastMessage.put(victim.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));
-			                }
-			                
-			            }
-						
-						else
-						{
-							victim.sendMessage(ChatColor.RED + attacker.getName() + " triggered your n00b shield, time for payback!");
-							PwnPvpBalance.lastMessage.put(victim.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));	
-						}
+						Messenger.shieldMessage(victim, attacker, " triggered your n00b shield, time for payback!");
 						
 						// Shield event = this event should get cancelled and no damage done
-						e.setCancelled(true);
+						e.setCancelled(true);	
 
 					}
 					

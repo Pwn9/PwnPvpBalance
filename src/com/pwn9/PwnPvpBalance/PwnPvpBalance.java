@@ -45,9 +45,10 @@ public class PwnPvpBalance extends JavaPlugin
 	public static Boolean endOnQuit;
 
 	// Get end timer
-	//public static Integer endTimer;
-	// End on timer will reset any shields or debuffs after X minutes, set to 0 to have no timer
-	//end_timer: 0 - will need to add to config when this is working
+	public static Integer shieldEndTimer;
+
+	// Hash map to store end timers per player
+	public static Map<UUID, Long> shieldEndTimes = new HashMap<UUID, Long>();
 	
 	// Get armor speed
 	public static Boolean armorSpeed;	
@@ -113,7 +114,6 @@ public class PwnPvpBalance extends JavaPlugin
 	
 	public void onDisable() 
 	{
-		
 		balances.saveConfig();
 		
 		if (PwnPvpBalance.logEnabled) {
@@ -134,7 +134,7 @@ public class PwnPvpBalance extends JavaPlugin
 	{
 		return System.currentTimeMillis() + time;
 	}
-	
+		
 	// Special logging function
     public static void logToFile(String message) 
     {   
