@@ -1,6 +1,6 @@
 package com.pwn9.PwnPvpBalance;
 
-public class Config extends PwnPvpBalance
+public class Config 
 {
 
 	// Load up any values from the config file
@@ -8,34 +8,34 @@ public class Config extends PwnPvpBalance
 	{
 
 		// Get enabled worlds
-		PwnPvpBalance.enabledWorlds = instance.getConfig().getStringList("enabled_worlds");		
+		PwnPvpBalance.enabledWorlds = PwnPvpBalance.instance.getConfig().getStringList("enabled_worlds");		
 		
 		// Get shield option
-		PwnPvpBalance.shield = instance.getConfig().getBoolean("shield", false);		
+		PwnPvpBalance.shield = PwnPvpBalance.instance.getConfig().getBoolean("shield", false);		
 
 		// Get killstreak
-		PwnPvpBalance.killstreak = instance.getConfig().getInt("killstreak", 3);		
+		PwnPvpBalance.killstreak = PwnPvpBalance.instance.getConfig().getInt("killstreak", 3);		
 
 		// Get max diff / debuff value
-		PwnPvpBalance.maxDiffs = instance.getConfig().getDouble("max_debuff", 9.0);	
+		PwnPvpBalance.maxDiffs = PwnPvpBalance.instance.getConfig().getDouble("max_debuff", 9.0);	
 			// Simple error checking on the config value here
 			if (PwnPvpBalance.maxDiffs > 9.0) { PwnPvpBalance.maxDiffs = 9.0; }
 			if (PwnPvpBalance.maxDiffs < 1.0) { PwnPvpBalance.maxDiffs = 1.0; }
 		
 		// Get scale down
-		PwnPvpBalance.scaleDown = instance.getConfig().getBoolean("scale", true);
+		PwnPvpBalance.scaleDown = PwnPvpBalance.instance.getConfig().getBoolean("scale", true);
 		
 		// Get end on quit
-		PwnPvpBalance.endOnQuit = instance.getConfig().getBoolean("end_on_quit", true);
+		PwnPvpBalance.endOnQuit = PwnPvpBalance.instance.getConfig().getBoolean("end_on_quit", true);
 
 		// Get end timer - multiply by 1000 to turn into seconds
-		PwnPvpBalance.shieldEndTimer = instance.getConfig().getInt("shield_end_timer", 300) * 1000;
+		PwnPvpBalance.shieldEndTimer = PwnPvpBalance.instance.getConfig().getInt("shield_end_timer", 300) * 1000;
 		
 		// Get armorspeed
-		PwnPvpBalance.armorSpeed = instance.getConfig().getBoolean("armor_speed", false);
+		PwnPvpBalance.armorSpeed = PwnPvpBalance.instance.getConfig().getBoolean("armor_speed", false);
 		
 		// Get logging enabled
-		PwnPvpBalance.logEnabled = instance.getConfig().getBoolean("debug_log", false);
+		PwnPvpBalance.logEnabled = PwnPvpBalance.instance.getConfig().getBoolean("debug_log", false);
 		
 		// Get balances config
 		PwnPvpBalance.balances.saveDefaultConfig();
@@ -43,7 +43,6 @@ public class Config extends PwnPvpBalance
 		// Testing save
 		//PwnPvpBalance.balances.getConfig().set("test", "test");
 		//PwnPvpBalance.balances.getConfig().set("testing.test", "testing");
-		
 			
 	}
 	
