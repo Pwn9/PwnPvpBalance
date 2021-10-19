@@ -49,7 +49,7 @@ public class PlayerMoveListener implements Listener
 		    if (boots.getType() == Material.LEATHER_BOOTS) {
 		       armorWeight = armorWeight + 1; 
 		    }
-		    if (boots.getType() == Material.GOLD_BOOTS) {
+		    if (boots.getType() == Material.GOLDEN_BOOTS) {
 		    	armorWeight = armorWeight + 2;  
 		    }
 		    if (boots.getType() == Material.CHAINMAIL_BOOTS) {
@@ -60,6 +60,9 @@ public class PlayerMoveListener implements Listener
 		    }
 		    if (boots.getType() == Material.DIAMOND_BOOTS) {
 		    	armorWeight = armorWeight + 4; 
+		    }
+		    if (boots.getType() == Material.NETHERITE_BOOTS) {
+		    	armorWeight = armorWeight + 5; 
 		    }		    
 		}
 
@@ -67,7 +70,7 @@ public class PlayerMoveListener implements Listener
 		    if (chest.getType() == Material.LEATHER_CHESTPLATE) {
 		    	armorWeight = armorWeight + 1; 
 		    }
-		    if (chest.getType() == Material.GOLD_CHESTPLATE) {
+		    if (chest.getType() == Material.GOLDEN_CHESTPLATE) {
 		    	armorWeight = armorWeight + 2; 
 		    }
 		    if (chest.getType() == Material.CHAINMAIL_CHESTPLATE) {
@@ -78,6 +81,9 @@ public class PlayerMoveListener implements Listener
 		    }
 		    if (chest.getType() == Material.DIAMOND_CHESTPLATE) {
 		    	armorWeight = armorWeight + 4; 
+		    }
+		    if (chest.getType() == Material.NETHERITE_CHESTPLATE) {
+		    	armorWeight = armorWeight + 5; 
 		    }		    
 		}
 
@@ -85,7 +91,7 @@ public class PlayerMoveListener implements Listener
 		    if (pants.getType() == Material.LEATHER_LEGGINGS) {
 		    	armorWeight = armorWeight + 1; 
 		    }
-		    if (pants.getType() == Material.GOLD_LEGGINGS) {
+		    if (pants.getType() == Material.GOLDEN_LEGGINGS) {
 		    	armorWeight = armorWeight + 2; 
 		    }
 		    if (pants.getType() == Material.CHAINMAIL_LEGGINGS) {
@@ -96,6 +102,9 @@ public class PlayerMoveListener implements Listener
 		    }
 		    if (pants.getType() == Material.DIAMOND_LEGGINGS) {
 		    	armorWeight = armorWeight + 4; 
+		    }
+		    if (pants.getType() == Material.NETHERITE_LEGGINGS) {
+		    	armorWeight = armorWeight + 5; 
 		    }		    
 		}
 		
@@ -103,7 +112,7 @@ public class PlayerMoveListener implements Listener
 		    if (helmet.getType() == Material.LEATHER_HELMET) {
 		    	armorWeight = armorWeight + 1; 
 		    }
-		    if (helmet.getType() == Material.GOLD_HELMET) {
+		    if (helmet.getType() == Material.GOLDEN_HELMET) {
 		    	armorWeight = armorWeight + 2; 
 		    }
 		    if (helmet.getType() == Material.CHAINMAIL_HELMET) {
@@ -114,7 +123,10 @@ public class PlayerMoveListener implements Listener
 		    }
 		    if (helmet.getType() == Material.DIAMOND_HELMET) {
 		    	armorWeight = armorWeight + 4; 
-		    }		    
+		    }
+		    if (helmet.getType() == Material.NETHERITE_HELMET) {
+		    	armorWeight = armorWeight + 5; 
+		    }			    
 		}
 		
 		double spdMod;

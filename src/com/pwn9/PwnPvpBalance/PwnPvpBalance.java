@@ -14,8 +14,6 @@ import java.util.UUID;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.pwn9.PwnPvpBalance.MetricsLite;
-
 public class PwnPvpBalance extends JavaPlugin 
 {
 	// For convenience, a reference to the instance of this plugin
@@ -76,15 +74,7 @@ public class PwnPvpBalance extends JavaPlugin
 		this.saveDefaultConfig();
 		
 		// Start Metrics
-		try 
-		{
-		    MetricsLite metricslite = new MetricsLite(this);
-		    metricslite.start();
-		} 
-		catch (IOException e) 
-		{
-		    // Failed to submit the stats :-(
-		}
+	    Metrics metrics = new Metrics(this, 13085);
 	    
 		// Get data folder
 		PwnPvpBalance.dataFolder = getDataFolder();
