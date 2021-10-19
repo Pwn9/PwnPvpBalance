@@ -3,7 +3,8 @@ name: PwnPvPBalance
 version: 1.1
 author: tremor77
 description: Balance PvP for players who are always getting beaten
-website: http://pwn9.com
+website: https://www.pwn9.com
+api-version: 1.13
 commands:
    ppb:
       description: Execute a PwnPvpBalance command
