@@ -8,7 +8,7 @@ enabled_worlds:
 # Set false (default) for damage reduction based on points over killstreak
 shield: false
 
-# Shield end on timer will reset player shields, if shield is set to true above, after X seconds
+# Shield end on timer will reset player shields, if shield is set to true above, after X seconds, set to -1 for infinite
 shield_end_timer: 300
 
 # +/- Kill count to activate player vs. player direct balance. IE: player A, kills player B, X times in a row.

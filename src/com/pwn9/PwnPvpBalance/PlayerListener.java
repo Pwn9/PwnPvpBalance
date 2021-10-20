@@ -95,13 +95,22 @@ public class PlayerListener implements Listener
 					if (PwnPvpBalance.shield) 	
 					{
 						
-						Messenger.shieldMessage(attacker, victim, " has n00b shield against you and cannot be harmed.");
-
-						Messenger.shieldMessage(victim, attacker, " triggered your n00b shield, time for payback!");
+						// get the last kill time
+						Long lastKill = PwnPvpBalance.shieldEndTimes.get(victim.getUniqueId()).get(attacker.getUniqueId());
+						Long curTime = System.currentTimeMillis();
 						
-						// Shield event = this event should get cancelled and no damage done
-						e.setCancelled(true);	
-
+						// is current time beyond lastKill + configured shieldEndTimer
+						if ((curTime < lastKill ) || (PwnPvpBalance.shieldEndTimer < 0)) {
+						
+							Messenger.shieldMessage(attacker, victim, " has n00b shield against you and cannot be harmed for " + (lastKill - curTime) / 1000 + " seconds.");
+	
+							Messenger.shieldMessage(victim, attacker, " triggered your n00b shield, time for payback for "  + (lastKill - curTime) / 1000 + " seconds.");
+							
+							// Shield event = this event should get cancelled and no damage done
+							e.setCancelled(true);
+						
+						}
+						
 					}
 					
 					// No shield, do damage reductions instead
@@ -132,7 +141,7 @@ public class PlayerListener implements Listener
 			        	{
 			        		PwnPvpBalance.logToFile(attacker.getName() + " V. " + victim.getName() + " : Init Damage: " + e.getDamage() + " Mod Damage: " + damageModifier);
 			        	}						
-						
+									        	
 						// Alter damage amount 
 						e.setDamage(damageModifier);
 						
@@ -172,45 +181,46 @@ public class PlayerListener implements Listener
 	        // Here will go a routine to match up the killed with the killer and add to a balance mapping        
 	        // Get any current killed -> killer -> counts, if none create new
 	       
-	        // Does current killed have a map up yet? If not start one and add the killer + 1 kill
+	        // Does current killed have a map up yet? If not start one
 	        if(PwnPvpBalance.pvpBalances.get(killed.getUniqueId()) == null) 
 	        {
-	        	
+	        	// Init the Hash maps	        	
 	        	PwnPvpBalance.pvpBalances.put(killed.getUniqueId(), new HashMap<UUID, Integer>());
-	     	
-	        	PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).put(killer.getUniqueId(), 1);
+	        	PwnPvpBalance.shieldEndTimes.put(killed.getUniqueId(), new HashMap<UUID, Long>());
 	        	
-	        	if (PwnPvpBalance.logEnabled)
-	        	{
-	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " 1 time");
-	        	}
 	        }	
 	        
+			Long curTime = System.currentTimeMillis();
+			
 	        // Has current killed player been killed by this killer yet? If not add killer + 1 kill
-	        else if(PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).get(killer.getUniqueId()) == null)
+	        if(PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).get(killer.getUniqueId()) == null)
 	        {
-	        	
+	        	// add data to the maps for this killer
 	        	PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).put(killer.getUniqueId(), 1);
+	        	PwnPvpBalance.shieldEndTimes.get(killed.getUniqueId()).put(killer.getUniqueId(), PwnPvpBalance.calcTimer((long) 30000));
 	        	
 	        	if (PwnPvpBalance.logEnabled)
 	        	{
-	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " 1 time");
-	        	}
+	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " 1 time " + " - curtime: " + curTime );	
+	        	}								
+					        	
 	        	
 	        }
 	        
 	        // Current killed player has been killed by this killer, add another kill
 	        else 
         	{
+	        	Long lastKill = PwnPvpBalance.shieldEndTimes.get(killed.getUniqueId()).get(killer.getUniqueId());
 	        	
 	        	Integer counts = PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).get(killer.getUniqueId());
 	        	counts = counts + 1;
 	        	
 	        	PwnPvpBalance.pvpBalances.get(killed.getUniqueId()).put(killer.getUniqueId(), counts);
+	        	PwnPvpBalance.shieldEndTimes.get(killed.getUniqueId()).put(killer.getUniqueId(), PwnPvpBalance.calcTimer((long) PwnPvpBalance.shieldEndTimer));
 	        	
 	        	if (PwnPvpBalance.logEnabled)
 	        	{
-	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " " + counts +" times");
+	        		PwnPvpBalance.logToFile(killed.getName() + " killed by " + killer.getName() + " " + counts +" times - curtime: " + curTime + " killtimer: " + lastKill);
 	        	}
 	        	
         	}

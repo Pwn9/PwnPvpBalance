@@ -45,9 +45,6 @@ public class PwnPvpBalance extends JavaPlugin
 	// Get end timer
 	public static Integer shieldEndTimer;
 
-	// Hash map to store end timers per player
-	public static Map<UUID, Long> shieldEndTimes = new HashMap<UUID, Long>();
-	
 	// Get armor speed
 	public static Boolean armorSpeed;	
 	
@@ -58,9 +55,12 @@ public class PwnPvpBalance extends JavaPlugin
 
  	// map<killed, map<killer, killedtimes>> 
 	public static Map<UUID, Map<UUID, Integer>> pvpBalances = new HashMap<UUID, Map<UUID, Integer>>();
-
+	
  	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
 	public static Map<UUID, Long> lastMessage = new HashMap<UUID, Long>();
+	
+	// Hash map to store end timers per player
+	public static Map<UUID, Map<UUID, Long>> shieldEndTimes = new HashMap<UUID, Map<UUID, Long>>();
 	
 	public static ConfigAccessor balances;
 	

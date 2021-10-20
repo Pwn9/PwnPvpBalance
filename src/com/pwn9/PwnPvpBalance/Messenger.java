@@ -17,12 +17,14 @@ public class Messenger extends PwnPvpBalance
             if(currTime > lastTime) 
             {
 				p.sendMessage(ChatColor.RED + q.getName() + message);
+				// 10 second delay - maybe make configurable
 				PwnPvpBalance.lastMessage.put(p.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));
             }
         }
 		else 
 		{
 			p.sendMessage(ChatColor.RED + q.getName() + message);
+			// 10 second delay - maybe make configurable
 			PwnPvpBalance.lastMessage.put(p.getUniqueId(), PwnPvpBalance.calcTimer((long) 10000));	
 		}		
 	}	
